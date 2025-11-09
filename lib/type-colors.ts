@@ -1,0 +1,120 @@
+export const TYPE_COLORS = {
+  normal: {
+    bg: "bg-gray-500/20",
+    text: "text-gray-400",
+    border: "border-gray-500/30",
+    glow: "rgba(156, 163, 175, 0.3)",
+  },
+  fire: {
+    bg: "bg-orange-500/20",
+    text: "text-orange-400",
+    border: "border-orange-500/30",
+    glow: "rgba(251, 146, 60, 0.3)",
+  },
+  water: { bg: "bg-blue-500/20", text: "text-blue-400", border: "border-blue-500/30", glow: "rgba(59, 130, 246, 0.3)" },
+  electric: {
+    bg: "bg-yellow-500/20",
+    text: "text-yellow-400",
+    border: "border-yellow-500/30",
+    glow: "rgba(234, 179, 8, 0.3)",
+  },
+  grass: {
+    bg: "bg-green-500/20",
+    text: "text-green-400",
+    border: "border-green-500/30",
+    glow: "rgba(34, 197, 94, 0.3)",
+  },
+  ice: { bg: "bg-cyan-400/20", text: "text-cyan-300", border: "border-cyan-400/30", glow: "rgba(34, 211, 238, 0.3)" },
+  fighting: { bg: "bg-red-600/20", text: "text-red-400", border: "border-red-600/30", glow: "rgba(220, 38, 38, 0.3)" },
+  poison: {
+    bg: "bg-purple-500/20",
+    text: "text-purple-400",
+    border: "border-purple-500/30",
+    glow: "rgba(168, 85, 247, 0.3)",
+  },
+  ground: {
+    bg: "bg-amber-600/20",
+    text: "text-amber-500",
+    border: "border-amber-600/30",
+    glow: "rgba(217, 119, 6, 0.3)",
+  },
+  flying: {
+    bg: "bg-indigo-400/20",
+    text: "text-indigo-300",
+    border: "border-indigo-400/30",
+    glow: "rgba(129, 140, 248, 0.3)",
+  },
+  psychic: {
+    bg: "bg-pink-500/20",
+    text: "text-pink-400",
+    border: "border-pink-500/30",
+    glow: "rgba(236, 72, 153, 0.3)",
+  },
+  bug: { bg: "bg-lime-500/20", text: "text-lime-400", border: "border-lime-500/30", glow: "rgba(132, 204, 22, 0.3)" },
+  rock: {
+    bg: "bg-stone-600/20",
+    text: "text-stone-400",
+    border: "border-stone-600/30",
+    glow: "rgba(120, 113, 108, 0.3)",
+  },
+  ghost: {
+    bg: "bg-violet-600/20",
+    text: "text-violet-400",
+    border: "border-violet-600/30",
+    glow: "rgba(124, 58, 237, 0.3)",
+  },
+  dragon: {
+    bg: "bg-indigo-600/20",
+    text: "text-indigo-400",
+    border: "border-indigo-600/30",
+    glow: "rgba(79, 70, 229, 0.3)",
+  },
+  dark: { bg: "bg-gray-700/20", text: "text-gray-300", border: "border-gray-700/30", glow: "rgba(75, 85, 99, 0.3)" },
+  steel: {
+    bg: "bg-slate-500/20",
+    text: "text-slate-300",
+    border: "border-slate-500/30",
+    glow: "rgba(100, 116, 139, 0.3)",
+  },
+  fairy: {
+    bg: "bg-pink-400/20",
+    text: "text-pink-300",
+    border: "border-pink-400/30",
+    glow: "rgba(244, 114, 182, 0.3)",
+  },
+} as const
+
+export type PokemonType = keyof typeof TYPE_COLORS
+
+export const POKEMON_TYPES: PokemonType[] = [
+  "normal",
+  "fire",
+  "water",
+  "electric",
+  "grass",
+  "ice",
+  "fighting",
+  "poison",
+  "ground",
+  "flying",
+  "psychic",
+  "bug",
+  "rock",
+  "ghost",
+  "dragon",
+  "dark",
+  "steel",
+  "fairy",
+]
+
+export const GENERATIONS = [
+  { id: 1, name: "Kanto", region: "Gen 1", range: "1-151", slug: "kanto" },
+  { id: 2, name: "Johto", region: "Gen 2", range: "152-251", slug: "johto" },
+  { id: 3, name: "Hoenn", region: "Gen 3", range: "252-386", slug: "hoenn" },
+  { id: 4, name: "Sinnoh", region: "Gen 4", range: "387-493", slug: "sinnoh" },
+  { id: 5, name: "Unova", region: "Gen 5", range: "494-649", slug: "unova" },
+  { id: 6, name: "Kalos", region: "Gen 6", range: "650-721", slug: "kalos" },
+  { id: 7, name: "Alola", region: "Gen 7", range: "722-809", slug: "alola" },
+  { id: 8, name: "Galar", region: "Gen 8", range: "810-905", slug: "galar" },
+  { id: 9, name: "Paldea", region: "Gen 9", range: "906-1025", slug: "paldea" },
+]
