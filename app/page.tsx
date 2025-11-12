@@ -118,7 +118,7 @@ export default function HomePage() {
                 </Card>
               </Link>
 
-              <Link href="/tier-lists/best-per-type">
+              <Link href="/best-attackers-per-type">
                 <Card className="group hover:border-primary/50 transition-all duration-300 cursor-pointer">
                   <CardContent className="p-6 flex items-center justify-between">
                     <div className="flex items-center gap-4">
@@ -147,7 +147,7 @@ export default function HomePage() {
               {POKEMON_TYPES.map((type) => {
                 const colors = TYPE_COLORS[type]
                 return (
-                  <Link key={type} href={`/best-attackers/${type}`}>
+                  <Link key={type} href={`/best-attackers-per-type/${type}`}>
                     <Card
                       className={`group hover:border-${type} transition-all duration-300 cursor-pointer ${colors.bg} ${colors.border} border`}
                       style={{
