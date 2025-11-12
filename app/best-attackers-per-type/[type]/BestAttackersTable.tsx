@@ -77,80 +77,78 @@ export default function BestAttackersTable({
   }, [pokemonTypes]);
 
   // Exact same DPS & TDO logic used in DpsTdoComparerClient
-const calculateStats = (
-  pokemon: Pokemon,
-  fastMove: FastMove,
-  chargedMove: ChargedMove
-) => {
-  const cpm = getCPMultiplier(40); // attacker level (default 40)
-  const attackScaled = pokemon.base_attack * cpm;
+  const calculateStats = (
+    pokemon: Pokemon,
+    fastMove: FastMove,
+    chargedMove: ChargedMove
+  ) => {
+    const cpm = getCPMultiplier(40); // attacker level (default 40)
+    const attackScaled = pokemon.base_attack * cpm;
 
-  // Defender defense constant (baseline)
-  const defenderDefense = 150;
+    // Defender defense constant (baseline)
+    const defenderDefense = 150;
 
-  // STAB calculation
-  const form = pokemon.form || "Normal";
-  const key = `${pokemon.pokemon_id}-${form}`;
-  const types =
-    typeMap.get(key) ||
-    typeMap.get(`${pokemon.pokemon_id}-Normal`) || { type_1: "Normal" };
+    // STAB calculation
+    const form = pokemon.form || "Normal";
+    const key = `${pokemon.pokemon_id}-${form}`;
+    const types = typeMap.get(key) ||
+      typeMap.get(`${pokemon.pokemon_id}-Normal`) || { type_1: "Normal" };
 
-  const fastStab =
-    fastMove.type.toLowerCase() === types.type_1.toLowerCase() ||
-    fastMove.type.toLowerCase() === types.type_2?.toLowerCase()
-      ? 1.2
-      : 1.0;
+    const fastStab =
+      fastMove.type.toLowerCase() === types.type_1.toLowerCase() ||
+      fastMove.type.toLowerCase() === types.type_2?.toLowerCase()
+        ? 1.2
+        : 1.0;
 
-  const chargedStab =
-    chargedMove.type.toLowerCase() === types.type_1.toLowerCase() ||
-    chargedMove.type.toLowerCase() === types.type_2?.toLowerCase()
-      ? 1.2
-      : 1.0;
+    const chargedStab =
+      chargedMove.type.toLowerCase() === types.type_1.toLowerCase() ||
+      chargedMove.type.toLowerCase() === types.type_2?.toLowerCase()
+        ? 1.2
+        : 1.0;
 
-  // Weather boosts handled later (default clear)
-  const fastWeatherBonus = 1.0;
-  const chargedWeatherBonus = 1.0;
+    // Weather boosts handled later (default clear)
+    const fastWeatherBonus = 1.0;
+    const chargedWeatherBonus = 1.0;
 
-  // Damage formula — identical to comparer
-  const fastMoveDamage =
-    0.5 *
-    fastMove.power *
-    (attackScaled / defenderDefense) *
-    fastStab *
-    fastWeatherBonus;
+    // Damage formula — identical to comparer
+    const fastMoveDamage =
+      0.5 *
+      fastMove.power *
+      (attackScaled / defenderDefense) *
+      fastStab *
+      fastWeatherBonus;
 
-  const chargedMoveDamage =
-    0.5 *
-    chargedMove.power *
-    (attackScaled / defenderDefense) *
-    chargedStab *
-    chargedWeatherBonus;
+    const chargedMoveDamage =
+      0.5 *
+      chargedMove.power *
+      (attackScaled / defenderDefense) *
+      chargedStab *
+      chargedWeatherBonus;
 
-  // Move durations (ms → s)
-  const fastDuration = fastMove.duration / 1000;
-  const chargedDuration = chargedMove.duration / 1000;
+    // Move durations (ms → s)
+    const fastDuration = fastMove.duration / 1000;
+    const chargedDuration = chargedMove.duration / 1000;
 
-  // Number of fast moves required to reach charged move
-  const energyNeeded = Math.abs(chargedMove.energy_delta);
-  const fastMoveEnergyGain = fastMove.energy_delta;
-  const nFast = Math.ceil(energyNeeded / fastMoveEnergyGain);
+    // Number of fast moves required to reach charged move
+    const energyNeeded = Math.abs(chargedMove.energy_delta);
+    const fastMoveEnergyGain = fastMove.energy_delta;
+    const nFast = Math.ceil(energyNeeded / fastMoveEnergyGain);
 
-  // Cycle damage & time
-  const cycleDamage = fastMoveDamage * nFast + chargedMoveDamage;
-  const cycleTime = fastDuration * nFast + chargedDuration;
+    // Cycle damage & time
+    const cycleDamage = fastMoveDamage * nFast + chargedMoveDamage;
+    const cycleTime = fastDuration * nFast + chargedDuration;
 
-  // DPS, TDO, and score
-  const dps = cycleDamage / cycleTime;
-  const tdo = (dps * pokemon.base_stamina * cpm) / 14;
-  const score = (dps * tdo) / 100;
+    // DPS, TDO, and score
+    const dps = cycleDamage / cycleTime;
+    const tdo = (dps * pokemon.base_stamina * cpm) / 14;
+    const score = (dps * tdo) / 100;
 
-  return {
-    dps: Number(dps.toFixed(2)),
-    tdo: Number(tdo.toFixed(2)),
-    score: Number(score.toFixed(2)),
+    return {
+      dps: Number(dps.toFixed(2)),
+      tdo: Number(tdo.toFixed(2)),
+      score: Number(score.toFixed(2)),
+    };
   };
-};
-
 
   useEffect(() => {
     const results: RankedPokemon[] = [];
@@ -228,104 +226,107 @@ const calculateStats = (
   return (
     <Card className="bg-card/50 border-border">
       <CardContent className="p-0">
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead className="bg-muted/50 border-b border-border">
-              <tr>
-                <th className="px-4 py-3 text-left text-sm font-semibold">#</th>
-                <th className="px-4 py-3 text-left text-sm font-semibold">
-                  Pokémon
-                </th>
-                <th className="px-4 py-3 text-left text-sm font-semibold">
-                  Fast Attack
-                </th>
-                <th className="px-4 py-3 text-left text-sm font-semibold">
-                  Charged Attack
-                </th>
-                <th
-                  className="px-4 py-3 text-left text-sm font-semibold cursor-pointer"
-                  onClick={() => handleSort("dps")}
-                >
-                  <div className="flex items-center gap-2">
-                    DPS {renderSortIcon("dps")}
-                  </div>
-                </th>
-                <th
-                  className="px-4 py-3 text-left text-sm font-semibold cursor-pointer"
-                  onClick={() => handleSort("tdo")}
-                >
-                  <div className="flex items-center gap-2">
-                    TDO {renderSortIcon("tdo")}
-                  </div>
-                </th>
-                <th
-                  className="px-4 py-3 text-left text-sm font-semibold cursor-pointer"
-                  onClick={() => handleSort("score")}
-                >
-                  <div className="flex items-center gap-2">
-                    Score {renderSortIcon("score")}
-                  </div>
-                </th>
-              </tr>
-            </thead>
+        {/* 🧩 Wrap table in a responsive container */}
+        <div className="w-full overflow-x-auto">
+  <table className="w-full table-fixed border-collapse min-w-[800px]">
+    <thead className="bg-muted/50 border-b border-border text-xs sm:text-sm">
+      <tr>
+        <th className="px-2 sm:px-4 py-3 text-left font-semibold w-[40px]">#</th>
+        <th className="px-2 sm:px-4 py-3 text-left font-semibold w-[180px]">Pokémon</th>
+        <th className="px-2 sm:px-4 py-3 text-left font-semibold w-[160px]">Fast Attack</th>
+        <th className="px-2 sm:px-4 py-3 text-left font-semibold w-[160px]">Charged Attack</th>
 
-            <tbody>
-              {currentPageData.length === 0 ? (
-                <tr>
-                  <td
-                    colSpan={7}
-                    className="text-center py-10 text-muted-foreground"
-                  >
-                    Loading best {type}-type attackers...
-                  </td>
-                </tr>
-              ) : (
-                currentPageData.map((entry, i) => (
-                  <tr
-                    key={`${entry.pokemon.pokemon_id}-${
-                      entry.pokemon.form || "Normal"
-                    }-${entry.fastMove.name}-${entry.chargedMove.name}-${i}`}
-                    className="border-b border-border/50 hover:bg-muted/30 transition-colors"
-                  >
-                    <td className="px-4 py-4 text-sm font-medium">
-                      {startIndex + i + 1}
-                    </td>
-                    <td className="px-4 py-4 flex items-center gap-3">
-                      <Link
-                        href={`/pokemon/${entry.pokemon.pokemon_id}`}
-                        className="flex items-center gap-3 hover:opacity-80 transition-opacity"
-                      >
-                        <Image
-                          src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${entry.pokemon.pokemon_id}.png`}
-                          alt={entry.pokemon.pokemon_name}
-                          width={48}
-                          height={48}
-                        />
-                        <span className="font-semibold text-foreground">
-                          {entry.pokemon.pokemon_name}
-                        </span>
-                      </Link>
-                    </td>
-                    <td className="px-4 py-4">{entry.fastMove.name}</td>
-                    <td className="px-4 py-4">{entry.chargedMove.name}</td>
-                    <td className="px-4 py-4 font-bold text-blue-400">
-                      {entry.dps}
-                    </td>
-                    <td className="px-4 py-4 font-bold text-yellow-400">
-                      {entry.tdo}
-                    </td>
-                    <td className="px-4 py-4 font-bold text-green-400">
-                      {entry.score}
-                    </td>
-                  </tr>
-                ))
-              )}
-            </tbody>
-          </table>
-        </div>
+        {/* DPS / TDO / Score headers are centered both visually & logically */}
+        <th
+          className="px-2 sm:px-4 py-3 font-semibold text-center w-[80px] cursor-pointer"
+          onClick={() => handleSort("dps")}
+        >
+          <div className="flex flex-col items-center justify-center">
+            DPS {renderSortIcon("dps")}
+          </div>
+        </th>
+        <th
+          className="px-2 sm:px-4 py-3 font-semibold text-center w-[80px] cursor-pointer"
+          onClick={() => handleSort("tdo")}
+        >
+          <div className="flex flex-col items-center justify-center">
+            TDO {renderSortIcon("tdo")}
+          </div>
+        </th>
+        <th
+          className="px-2 sm:px-4 py-3 font-semibold text-center w-[80px] cursor-pointer"
+          onClick={() => handleSort("score")}
+        >
+          <div className="flex flex-col items-center justify-center">
+            Score {renderSortIcon("score")}
+          </div>
+        </th>
+      </tr>
+    </thead>
 
-        {/* Pagination Footer */}
-        <div className="flex items-center justify-between px-4 py-4 border-t border-border bg-muted/30">
+    <tbody className="text-xs sm:text-sm">
+      {currentPageData.length === 0 ? (
+        <tr>
+          <td colSpan={7} className="text-center py-10 text-muted-foreground">
+            Loading best {type}-type attackers...
+          </td>
+        </tr>
+      ) : (
+        currentPageData.map((entry, i) => (
+          <tr
+            key={`${entry.pokemon.pokemon_id}-${entry.fastMove.name}-${entry.chargedMove.name}-${i}`}
+            className="border-b border-border/50 hover:bg-muted/30 transition-colors"
+          >
+            <td className="px-2 sm:px-4 py-3 text-center font-medium">
+              {startIndex + i + 1}
+            </td>
+
+            <td className="px-2 sm:px-4 py-3 whitespace-nowrap">
+              <Link
+                href={`/pokemon/${entry.pokemon.pokemon_id}`}
+                className="flex items-center gap-2 sm:gap-3"
+              >
+                <Image
+                  src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${entry.pokemon.pokemon_id}.png`}
+                  alt={entry.pokemon.pokemon_name}
+                  width={40}
+                  height={40}
+                  className="flex-shrink-0"
+                />
+                <span className="font-semibold text-foreground truncate max-w-[120px] sm:max-w-none">
+                  {entry.pokemon.pokemon_name}
+                </span>
+              </Link>
+            </td>
+
+            <td className="px-2 sm:px-4 py-3 text-muted-foreground whitespace-nowrap truncate max-w-[130px]">
+              {entry.fastMove.name}
+            </td>
+
+            <td className="px-2 sm:px-4 py-3 text-muted-foreground whitespace-nowrap truncate max-w-[130px]">
+              {entry.chargedMove.name}
+            </td>
+
+            {/* 👇 FIXED: DPS/TDO/Score now perfectly centered across devices */}
+            <td className="px-2 sm:px-4 py-3 font-bold text-blue-400 text-center">
+              {entry.dps}
+            </td>
+            <td className="px-2 sm:px-4 py-3 font-bold text-yellow-400 text-center">
+              {entry.tdo}
+            </td>
+            <td className="px-2 sm:px-4 py-3 font-bold text-green-400 text-center">
+              {entry.score}
+            </td>
+          </tr>
+        ))
+      )}
+    </tbody>
+  </table>
+</div>
+
+
+        {/* Pagination Footer (unchanged) */}
+        <div className="flex items-center justify-between px-4 py-4 border-t border-border bg-muted/30 text-sm flex-wrap gap-2">
           <div className="flex items-center gap-2">
             <Button
               variant="outline"
@@ -361,7 +362,7 @@ const calculateStats = (
             </Button>
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
             <Select
               value={String(itemsPerPage)}
               onValueChange={(v) => {
@@ -369,7 +370,7 @@ const calculateStats = (
                 setCurrentPage(1);
               }}
             >
-              <SelectTrigger className="w-32 h-8">
+              <SelectTrigger className="w-28 h-8">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -380,7 +381,7 @@ const calculateStats = (
               </SelectContent>
             </Select>
 
-            <span className="text-sm text-muted-foreground">
+            <span className="text-muted-foreground">
               {startIndex + 1}-{Math.min(endIndex, rankings.length)} of{" "}
               {rankings.length}
             </span>
