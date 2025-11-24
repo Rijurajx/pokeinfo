@@ -213,8 +213,7 @@ export default function HomePage() {
               { name: "DPS and TDO Comparer", href: "/tools/dps-tdo-comparer", icon: TrendingUp },
               { name: "Mega Boost", href: "/mega-boost", icon: Zap },
               { name: "Ursaluna Full Moon Tracker", href: "/tools/ursaluna-tracker", icon: Moon },
-              { name: "Stickers", href: "/stickers", icon: Sticker },
-              { name: "Who's That Pokémon?", href: "/whos-that-pokemon", icon: HelpCircle },
+              
             ].map((tool) => (
               <Link key={tool.name} href={tool.href}>
                 <Card className="group hover:border-primary/50 transition-all duration-300 cursor-pointer h-full">
