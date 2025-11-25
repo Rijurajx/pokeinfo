@@ -213,6 +213,7 @@ export default function HomePage() {
               { name: "DPS and TDO Comparer", href: "/tools/dps-tdo-comparer", icon: TrendingUp },
               { name: "Mega Boost", href: "/mega-boost", icon: Zap },
               { name: "Ursaluna Full Moon Tracker", href: "/tools/ursaluna-tracker", icon: Moon },
+              { name: "IV Calculator", href: "/tools/iv-calculator", icon: HelpCircle },
               
             ].map((tool) => (
               <Link key={tool.name} href={tool.href}>
