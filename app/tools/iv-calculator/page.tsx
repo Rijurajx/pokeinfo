@@ -218,17 +218,17 @@ export default function IVLevelCalculatorPage() {
     setSearchQuery(displayName);
     setShowDropdown(false);
     setResults([]);
-    };
-    
-    const renderSortIcon = (column: SortableColumn) => {
-  if (sortColumn !== column || sortOrder === "none") {
-    return <span className="opacity-40 text-xs ml-1">⇅</span>;
-  }
-  if (sortOrder === "asc") {
-    return <span className="text-primary text-xs ml-1">▲</span>;
-  }
-  return <span className="text-primary text-xs ml-1">▼</span>;
-};
+  };
+
+  const renderSortIcon = (column: SortableColumn) => {
+    if (sortColumn !== column || sortOrder === "none") {
+      return <span className="opacity-40 text-xs ml-1">⇅</span>;
+    }
+    if (sortOrder === "asc") {
+      return <span className="text-primary text-xs ml-1">▲</span>;
+    }
+    return <span className="text-primary text-xs ml-1">▼</span>;
+  };
 
   const handleSort = (column: SortableColumn) => {
     if (sortColumn !== column) {
@@ -548,65 +548,66 @@ export default function IVLevelCalculatorPage() {
                 <div className="overflow-x-auto">
                   <table className="w-full table-fixed border-collapse">
                     <thead className="bg-slate-800/60">
-  <tr>
-    <th className="p-2 text-left text-xs text-slate-300">#</th>
+                      <tr>
+                        <th className="p-2 text-left text-xs text-slate-300">
+                          #
+                        </th>
 
-    <th
-      className="p-2 text-left text-xs text-slate-300 cursor-pointer select-none"
-      onClick={() => handleSort("atkIV")}
-    >
-      <div className="flex items-center gap-1">
-        ATK IV {renderSortIcon("atkIV")}
-      </div>
-    </th>
+                        <th
+                          className="p-2 text-left text-xs text-slate-300 cursor-pointer select-none"
+                          onClick={() => handleSort("atkIV")}
+                        >
+                          <div className="flex items-center gap-1">
+                            ATK IV {renderSortIcon("atkIV")}
+                          </div>
+                        </th>
 
-    <th
-      className="p-2 text-left text-xs text-slate-300 cursor-pointer select-none"
-      onClick={() => handleSort("defIV")}
-    >
-      <div className="flex items-center gap-1">
-        DEF IV {renderSortIcon("defIV")}
-      </div>
-    </th>
+                        <th
+                          className="p-2 text-left text-xs text-slate-300 cursor-pointer select-none"
+                          onClick={() => handleSort("defIV")}
+                        >
+                          <div className="flex items-center gap-1">
+                            DEF IV {renderSortIcon("defIV")}
+                          </div>
+                        </th>
 
-    <th
-      className="p-2 text-left text-xs text-slate-300 cursor-pointer select-none"
-      onClick={() => handleSort("hpIV")}
-    >
-      <div className="flex items-center gap-1">
-        HP IV {renderSortIcon("hpIV")}
-      </div>
-    </th>
+                        <th
+                          className="p-2 text-left text-xs text-slate-300 cursor-pointer select-none"
+                          onClick={() => handleSort("hpIV")}
+                        >
+                          <div className="flex items-center gap-1">
+                            HP IV {renderSortIcon("hpIV")}
+                          </div>
+                        </th>
 
-    <th
-      className="p-2 text-left text-xs text-slate-300 cursor-pointer select-none"
-      onClick={() => handleSort("level")}
-    >
-      <div className="flex items-center gap-1">
-        Level {renderSortIcon("level")}
-      </div>
-    </th>
+                        <th
+                          className="p-2 text-left text-xs text-slate-300 cursor-pointer select-none"
+                          onClick={() => handleSort("level")}
+                        >
+                          <div className="flex items-center gap-1">
+                            Level {renderSortIcon("level")}
+                          </div>
+                        </th>
 
-    <th
-      className="p-2 text-left text-xs text-slate-300 cursor-pointer select-none"
-      onClick={() => handleSort("sumIV")}
-    >
-      <div className="flex items-center gap-1">
-        Sum IV {renderSortIcon("sumIV")}
-      </div>
-    </th>
+                        <th
+                          className="p-2 text-left text-xs text-slate-300 cursor-pointer select-none"
+                          onClick={() => handleSort("sumIV")}
+                        >
+                          <div className="flex items-center gap-1">
+                            Sum IV {renderSortIcon("sumIV")}
+                          </div>
+                        </th>
 
-    <th
-      className="p-2 text-left text-xs text-slate-300 cursor-pointer select-none"
-      onClick={() => handleSort("percent")}
-    >
-      <div className="flex items-center gap-1">
-        IV % {renderSortIcon("percent")}
-      </div>
-    </th>
-  </tr>
-</thead>
-
+                        <th
+                          className="p-2 text-left text-xs text-slate-300 cursor-pointer select-none"
+                          onClick={() => handleSort("percent")}
+                        >
+                          <div className="flex items-center gap-1">
+                            IV % {renderSortIcon("percent")}
+                          </div>
+                        </th>
+                      </tr>
+                    </thead>
 
                     <tbody>
                       {sortedResults

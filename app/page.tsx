@@ -1,9 +1,10 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
+import Link from "next/link";
+import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import {
   Search,
   Trophy,
@@ -23,8 +24,8 @@ import {
   Moon,
   Sticker,
   HelpCircle,
-} from "lucide-react"
-import { TYPE_COLORS, POKEMON_TYPES, GENERATIONS } from "@/lib/type-colors"
+} from "lucide-react";
+import { TYPE_COLORS, POKEMON_TYPES, GENERATIONS } from "@/lib/type-colors";
 
 export default function HomePage() {
   return (
@@ -42,7 +43,10 @@ export default function HomePage() {
 
             {/* Search Bar */}
             <div className="relative max-w-2xl mx-auto">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground" size={20} />
+              <Search
+                className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground"
+                size={20}
+              />
               <Input
                 placeholder="Search Pokémon, moves, or types..."
                 className="pl-12 h-12 bg-card border-border text-lg"
@@ -92,11 +96,17 @@ export default function HomePage() {
                         <Swords size={24} />
                       </div>
                       <div>
-                        <h3 className="font-bold text-lg">Best Attackers Tier List</h3>
-                        <p className="text-sm text-muted-foreground">Top DPS Pokémon for raids</p>
+                        <h3 className="font-bold text-lg">
+                          Best Attackers Tier List
+                        </h3>
+                        <p className="text-sm text-muted-foreground">
+                          Top DPS Pokémon for raids
+                        </p>
                       </div>
                     </div>
-                    <span className="text-xs px-2 py-1 rounded-full bg-primary/20 text-primary">Updated</span>
+                    <span className="text-xs px-2 py-1 rounded-full bg-primary/20 text-primary">
+                      Updated
+                    </span>
                   </CardContent>
                 </Card>
               </Link>
@@ -109,11 +119,17 @@ export default function HomePage() {
                         <Shield size={24} />
                       </div>
                       <div>
-                        <h3 className="font-bold text-lg">Best Defenders Tier List</h3>
-                        <p className="text-sm text-muted-foreground">Top gym defenders</p>
+                        <h3 className="font-bold text-lg">
+                          Best Defenders Tier List
+                        </h3>
+                        <p className="text-sm text-muted-foreground">
+                          Top gym defenders
+                        </p>
                       </div>
                     </div>
-                    <span className="text-xs px-2 py-1 rounded-full bg-primary/20 text-primary">Updated</span>
+                    <span className="text-xs px-2 py-1 rounded-full bg-primary/20 text-primary">
+                      Updated
+                    </span>
                   </CardContent>
                 </Card>
               </Link>
@@ -126,11 +142,17 @@ export default function HomePage() {
                         <Zap size={24} />
                       </div>
                       <div>
-                        <h3 className="font-bold text-lg">Best Attackers per Type</h3>
-                        <p className="text-sm text-muted-foreground">Type-specific rankings</p>
+                        <h3 className="font-bold text-lg">
+                          Best Attackers per Type
+                        </h3>
+                        <p className="text-sm text-muted-foreground">
+                          Type-specific rankings
+                        </p>
                       </div>
                     </div>
-                    <span className="text-xs px-2 py-1 rounded-full bg-primary/20 text-primary">Updated</span>
+                    <span className="text-xs px-2 py-1 rounded-full bg-primary/20 text-primary">
+                      Updated
+                    </span>
                   </CardContent>
                 </Card>
               </Link>
@@ -143,9 +165,11 @@ export default function HomePage() {
               <Swords className="text-primary" size={28} />
               Best Attackers per Type
             </h2>
+
             <div className="grid grid-cols-3 gap-3">
               {POKEMON_TYPES.map((type) => {
-                const colors = TYPE_COLORS[type]
+                const colors = TYPE_COLORS[type];
+
                 return (
                   <Link key={type} href={`/best-attackers-per-type/${type}`}>
                     <Card
@@ -155,18 +179,33 @@ export default function HomePage() {
                         transition: "box-shadow 0.3s ease",
                       }}
                       onMouseEnter={(e) => {
-                        e.currentTarget.style.boxShadow = `0 0 20px ${colors.glow}`
+                        e.currentTarget.style.boxShadow = `0 0 20px ${colors.glow}`;
                       }}
                       onMouseLeave={(e) => {
-                        e.currentTarget.style.boxShadow = "0 0 0 rgba(0,0,0,0)"
+                        e.currentTarget.style.boxShadow = "0 0 0 rgba(0,0,0,0)";
                       }}
                     >
-                      <CardContent className="p-4 text-center">
-                        <div className={`font-bold capitalize text-sm ${colors.text}`}>{type}</div>
+                      <CardContent className="p-4 flex flex-col items-center justify-center gap-2">
+                        {/* ✅ TYPE ICON */}
+                        <div className="relative w-8 h-8">
+                          <Image
+                            src={`/type_icons/${type}.webp`}
+                            alt={type}
+                            fill
+                            className="object-contain"
+                          />
+                        </div>
+
+                        {/* ✅ OPTIONAL TEXT (you can remove this if you want icon-only) */}
+                        <div
+                          className={`font-bold capitalize text-xs ${colors.text}`}
+                        >
+                          {type}
+                        </div>
                       </CardContent>
                     </Card>
                   </Link>
-                )
+                );
               })}
             </div>
           </section>
@@ -182,10 +221,14 @@ export default function HomePage() {
               <Link key={gen.id} href={`/pokedex/${gen.slug}`}>
                 <Card className="group hover:border-primary/50 transition-all duration-300 cursor-pointer h-full">
                   <CardContent className="p-6 flex items-center gap-4">
-                    <div className="text-4xl font-bold text-primary">{gen.id}</div>
+                    <div className="text-4xl font-bold text-primary">
+                      {gen.id}
+                    </div>
                     <div>
                       <div className="font-bold text-lg">{gen.name}</div>
-                      <div className="text-sm text-muted-foreground">{gen.range}</div>
+                      <div className="text-sm text-muted-foreground">
+                        {gen.range}
+                      </div>
                     </div>
                   </CardContent>
                 </Card>
@@ -203,18 +246,49 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
             {[
               { name: "Pokédex", href: "/pokedex", icon: BookOpen },
-              { name: "CP Calculator", href: "/tools/cp-calculator", icon: Calculator },
+              {
+                name: "CP Calculator",
+                href: "/tools/cp-calculator",
+                icon: Calculator,
+              },
               { name: "Type Chart", href: "/tools/type-chart", icon: Map },
-              { name: "Shiny Checklist", href: "/tools/shiny-checklist", icon: Sparkles },
-              { name: "DPS Calculator", href: "/tools/dps-calculator", icon: Zap },
-              { name: "Community Day Moves", href: "/community-day-moves", icon: Calendar },
+              {
+                name: "Shiny Checklist",
+                href: "/tools/shiny-checklist",
+                icon: Sparkles,
+              },
+              {
+                name: "DPS Calculator",
+                href: "/tools/dps-calculator",
+                icon: Zap,
+              },
+              {
+                name: "Community Day Moves",
+                href: "/community-day-moves",
+                icon: Calendar,
+              },
               { name: "Legacy Moves", href: "/legacy-moves", icon: Clock },
-              { name: "Perfect IV Odds", href: "/tools/perfect-iv-odds", icon: BarChart3 },
-              { name: "DPS and TDO Comparer", href: "/tools/dps-tdo-comparer", icon: TrendingUp },
+              {
+                name: "Perfect IV Odds",
+                href: "/tools/perfect-iv-odds",
+                icon: BarChart3,
+              },
+              {
+                name: "DPS and TDO Comparer",
+                href: "/tools/dps-tdo-comparer",
+                icon: TrendingUp,
+              },
               { name: "Mega Boost", href: "/mega-boost", icon: Zap },
-              { name: "Ursaluna Full Moon Tracker", href: "/tools/ursaluna-tracker", icon: Moon },
-              { name: "IV Calculator", href: "/tools/iv-calculator", icon: HelpCircle },
-              
+              {
+                name: "Ursaluna Full Moon Tracker",
+                href: "/tools/ursaluna-tracker",
+                icon: Moon,
+              },
+              {
+                name: "IV Calculator",
+                href: "/tools/iv-calculator",
+                icon: HelpCircle,
+              },
             ].map((tool) => (
               <Link key={tool.name} href={tool.href}>
                 <Card className="group hover:border-primary/50 transition-all duration-300 cursor-pointer h-full">
@@ -240,7 +314,9 @@ export default function HomePage() {
               <Card className="group hover:border-primary/50 transition-all duration-300 cursor-pointer h-full">
                 <CardContent className="p-6">
                   <h3 className="font-bold text-lg mb-2">Fast Attacks</h3>
-                  <p className="text-sm text-muted-foreground">Gym & Raid moves</p>
+                  <p className="text-sm text-muted-foreground">
+                    Gym & Raid moves
+                  </p>
                 </CardContent>
               </Card>
             </Link>
@@ -248,7 +324,9 @@ export default function HomePage() {
               <Card className="group hover:border-primary/50 transition-all duration-300 cursor-pointer h-full">
                 <CardContent className="p-6">
                   <h3 className="font-bold text-lg mb-2">Charge Attacks</h3>
-                  <p className="text-sm text-muted-foreground">Gym & Raid moves</p>
+                  <p className="text-sm text-muted-foreground">
+                    Gym & Raid moves
+                  </p>
                 </CardContent>
               </Card>
             </Link>
@@ -256,7 +334,9 @@ export default function HomePage() {
               <Card className="group hover:border-primary/50 transition-all duration-300 cursor-pointer h-full">
                 <CardContent className="p-6">
                   <h3 className="font-bold text-lg mb-2">Fast Attacks</h3>
-                  <p className="text-sm text-muted-foreground">Trainer Battles</p>
+                  <p className="text-sm text-muted-foreground">
+                    Trainer Battles
+                  </p>
                 </CardContent>
               </Card>
             </Link>
@@ -264,7 +344,9 @@ export default function HomePage() {
               <Card className="group hover:border-primary/50 transition-all duration-300 cursor-pointer h-full">
                 <CardContent className="p-6">
                   <h3 className="font-bold text-lg mb-2">Charge Attacks</h3>
-                  <p className="text-sm text-muted-foreground">Trainer Battles</p>
+                  <p className="text-sm text-muted-foreground">
+                    Trainer Battles
+                  </p>
                 </CardContent>
               </Card>
             </Link>
@@ -278,7 +360,10 @@ export default function HomePage() {
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {["1 KM", "3 KM", "5 KM", "20 KM"].map((distance) => (
-              <Link key={distance} href={`/buddy-distance?distance=${distance.split(" ")[0]}`}>
+              <Link
+                key={distance}
+                href={`/buddy-distance?distance=${distance.split(" ")[0]}`}
+              >
                 <Card className="group hover:border-primary/50 transition-all duration-300 cursor-pointer h-full">
                   <CardContent className="p-6 text-center space-y-3">
                     <Heart className="mx-auto text-pink-400" size={32} />
@@ -291,37 +376,56 @@ export default function HomePage() {
         </section>
 
         <section>
-          <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-            <Map className="text-primary" size={28} />
-            Pokémon by Type
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-            {POKEMON_TYPES.map((type) => {
-              const colors = TYPE_COLORS[type]
-              return (
-                <Link key={type} href={`/type/${type}`}>
-                  <Card
-                    className={`group hover:border-${type} transition-all duration-300 cursor-pointer ${colors.bg} ${colors.border} border h-full`}
-                    style={{
-                      boxShadow: `0 0 0 rgba(0,0,0,0)`,
-                      transition: "box-shadow 0.3s ease",
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.boxShadow = `0 0 20px ${colors.glow}`
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.boxShadow = "0 0 0 rgba(0,0,0,0)"
-                    }}
-                  >
-                    <CardContent className="p-6 text-center">
-                      <div className={`font-bold capitalize text-lg ${colors.text}`}>{type}</div>
-                    </CardContent>
-                  </Card>
-                </Link>
-              )
-            })}
-          </div>
-        </section>
+  <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
+    <Map className="text-primary" size={28} />
+    Pokémon by Type
+  </h2>
+
+  <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+    {POKEMON_TYPES.map((type) => {
+      const colors = TYPE_COLORS[type];
+
+      return (
+        <Link key={type} href={`/type/${type}`}>
+          <Card
+            className={`group hover:border-${type} transition-all duration-300 cursor-pointer ${colors.bg} ${colors.border} border h-full`}
+            style={{
+              boxShadow: `0 0 0 rgba(0,0,0,0)`,
+              transition: "box-shadow 0.3s ease",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.boxShadow = `0 0 20px ${colors.glow}`;
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.boxShadow = "0 0 0 rgba(0,0,0,0)";
+            }}
+          >
+            <CardContent className="p-6 flex flex-col items-center gap-3">
+              
+              {/* ✅ TYPE ICON */}
+              <div className="relative w-12 h-12">
+                <Image
+                  src={`/type_icons/${type}.webp`}
+                  alt={type}
+                  fill
+                  className="object-contain"
+                />
+              </div>
+
+              {/* ✅ OPTIONAL LABEL BELOW ICON */}
+              <div
+                className={`font-bold capitalize text-lg ${colors.text}`}
+              >
+                {type}
+              </div>
+            </CardContent>
+          </Card>
+        </Link>
+      );
+    })}
+  </div>
+</section>
+
 
         {/* About Database Section - Full Width */}
         <section className="border-t border-border pt-10">
@@ -330,15 +434,18 @@ export default function HomePage() {
               <div className="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-primary to-secondary glow-blue" />
               <h2 className="text-3xl font-bold">About Pokémon GO Database</h2>
               <p className="text-muted-foreground max-w-2xl mx-auto text-pretty">
-                Your ultimate Pokémon GO database. Explore stats, moves, evolutions, and meta-relevant data for every
-                Pokémon. Stay updated with tier lists, tools, and comprehensive information to dominate raids, gyms, and
-                PvP battles.
+                Your ultimate Pokémon GO database. Explore stats, moves,
+                evolutions, and meta-relevant data for every Pokémon. Stay
+                updated with tier lists, tools, and comprehensive information to
+                dominate raids, gyms, and PvP battles.
               </p>
-              <p className="text-sm text-muted-foreground pt-4">Powered by PogoAPI • Built with ❤️ for Trainers</p>
+              <p className="text-sm text-muted-foreground pt-4">
+                Powered by PogoAPI • Built with ❤️ for Trainers
+              </p>
             </CardContent>
           </Card>
         </section>
       </div>
     </div>
-  )
+  );
 }
