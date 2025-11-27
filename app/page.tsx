@@ -212,30 +212,45 @@ export default function HomePage() {
         </div>
 
         <section>
-          <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-            <Map className="text-primary" size={28} />
-            Pokémon by Generation
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-            {GENERATIONS.map((gen) => (
-              <Link key={gen.id} href={`/pokedex/${gen.slug}`}>
-                <Card className="group hover:border-primary/50 transition-all duration-300 cursor-pointer h-full">
-                  <CardContent className="p-6 flex items-center gap-4">
-                    <div className="text-4xl font-bold text-primary">
-                      {gen.id}
-                    </div>
-                    <div>
-                      <div className="font-bold text-lg">{gen.name}</div>
-                      <div className="text-sm text-muted-foreground">
-                        {gen.range}
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </Link>
-            ))}
-          </div>
-        </section>
+  <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
+    <Map className="text-primary" size={28} />
+    Pokémon by Generation
+  </h2>
+
+  <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+    {GENERATIONS.map((gen) => (
+      <Link key={gen.id} href={`/pokedex/${gen.slug}`}>
+        <Card className="group hover:border-primary/50 transition-all duration-300 cursor-pointer h-full">
+          <CardContent className="p-6 flex items-center gap-4">
+
+            {/* ✅ GENERATION ICON */}
+            <div className="relative w-14 h-14 shrink-0">
+              <Image
+                src={`/pokedex_icons/${gen.slug}.webp`}
+                alt={gen.name}
+                fill
+                className="object-contain"
+              />
+            </div>
+
+            {/* ✅ TEXT CONTENT */}
+            <div>
+              <div className="text-2xl font-bold text-primary">
+                Gen {gen.id}
+              </div>
+              <div className="font-bold text-lg">{gen.name}</div>
+              <div className="text-sm text-muted-foreground">
+                {gen.range}
+              </div>
+            </div>
+
+          </CardContent>
+        </Card>
+      </Link>
+    ))}
+  </div>
+</section>
+
 
         <section id="tools">
           <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
@@ -376,56 +391,54 @@ export default function HomePage() {
         </section>
 
         <section>
-  <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-    <Map className="text-primary" size={28} />
-    Pokémon by Type
-  </h2>
+          <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
+            <Map className="text-primary" size={28} />
+            Pokémon by Type
+          </h2>
 
-  <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-    {POKEMON_TYPES.map((type) => {
-      const colors = TYPE_COLORS[type];
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+            {POKEMON_TYPES.map((type) => {
+              const colors = TYPE_COLORS[type];
 
-      return (
-        <Link key={type} href={`/type/${type}`}>
-          <Card
-            className={`group hover:border-${type} transition-all duration-300 cursor-pointer ${colors.bg} ${colors.border} border h-full`}
-            style={{
-              boxShadow: `0 0 0 rgba(0,0,0,0)`,
-              transition: "box-shadow 0.3s ease",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.boxShadow = `0 0 20px ${colors.glow}`;
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.boxShadow = "0 0 0 rgba(0,0,0,0)";
-            }}
-          >
-            <CardContent className="p-6 flex flex-col items-center gap-3">
-              
-              {/* ✅ TYPE ICON */}
-              <div className="relative w-12 h-12">
-                <Image
-                  src={`/type_icons/${type}.webp`}
-                  alt={type}
-                  fill
-                  className="object-contain"
-                />
-              </div>
+              return (
+                <Link key={type} href={`/type/${type}`}>
+                  <Card
+                    className={`group hover:border-${type} transition-all duration-300 cursor-pointer ${colors.bg} ${colors.border} border h-full`}
+                    style={{
+                      boxShadow: `0 0 0 rgba(0,0,0,0)`,
+                      transition: "box-shadow 0.3s ease",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.boxShadow = `0 0 20px ${colors.glow}`;
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.boxShadow = "0 0 0 rgba(0,0,0,0)";
+                    }}
+                  >
+                    <CardContent className="p-6 flex flex-col items-center gap-3">
+                      {/* ✅ TYPE ICON */}
+                      <div className="relative w-12 h-12">
+                        <Image
+                          src={`/type_icons/${type}.webp`}
+                          alt={type}
+                          fill
+                          className="object-contain"
+                        />
+                      </div>
 
-              {/* ✅ OPTIONAL LABEL BELOW ICON */}
-              <div
-                className={`font-bold capitalize text-lg ${colors.text}`}
-              >
-                {type}
-              </div>
-            </CardContent>
-          </Card>
-        </Link>
-      );
-    })}
-  </div>
-</section>
-
+                      {/* ✅ OPTIONAL LABEL BELOW ICON */}
+                      <div
+                        className={`font-bold capitalize text-lg ${colors.text}`}
+                      >
+                        {type}
+                      </div>
+                    </CardContent>
+                  </Card>
+                </Link>
+              );
+            })}
+          </div>
+        </section>
 
         {/* About Database Section - Full Width */}
         <section className="border-t border-border pt-10">
