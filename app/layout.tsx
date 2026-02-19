@@ -4,10 +4,7 @@ import { GeistSans } from "geist/font/sans"
 import { GeistMono } from "geist/font/mono"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
-import Navbar from "@/components/Navbar"
-import Footer from "@/components/Footer"
-import { Suspense } from "react"
-import { ErrorBoundary } from "@/components/ErrorBoundary"
+import { ConditionalLayout } from "@/components/ConditionalLayout"
 
 export const metadata: Metadata = {
   title: "Pokémon GO Database",
@@ -23,13 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable} antialiased`}>
-        <ErrorBoundary>
-          <Suspense fallback={<div>Loading...</div>}>
-            <Navbar />
-            <main className="min-h-screen pt-16">{children}</main>
-            <Footer />
-          </Suspense>
-        </ErrorBoundary>
+        <ConditionalLayout>{children}</ConditionalLayout>
         <Analytics />
         <script
           dangerouslySetInnerHTML={{

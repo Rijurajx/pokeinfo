@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils"
 const navItems = [
   { name: "Pokédex", href: "/pokedex" },
   { name: "Events", href: "/events" },
+  { name: "News", href: "/blogs" },
 ]
 
 const movesMenu = [
