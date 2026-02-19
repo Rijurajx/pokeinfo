@@ -5,19 +5,25 @@
 
 :root {
   /* Dark-only theme with neon blue/purple accents */
-  --background: oklch(0.08 0 0); /* Deep black #0a0a0a */
-  --foreground: oklch(0.92 0 0); /* Soft gray #e5e7eb */
-  --card: oklch(0.12 0 0); /* Slightly lighter than background */
+  --background: oklch(0.08 0 0);
+  /* Deep black #0a0a0a */
+  --foreground: oklch(0.92 0 0);
+  /* Soft gray #e5e7eb */
+  --card: oklch(0.12 0 0);
+  /* Slightly lighter than background */
   --card-foreground: oklch(0.92 0 0);
   --popover: oklch(0.12 0 0);
   --popover-foreground: oklch(0.92 0 0);
-  --primary: oklch(0.6 0.22 264); /* Neon blue #3b82f6 */
+  --primary: oklch(0.6 0.22 264);
+  /* Neon blue #3b82f6 */
   --primary-foreground: oklch(0.98 0 0);
-  --secondary: oklch(0.62 0.24 293); /* Neon purple #8b5cf6 */
+  --secondary: oklch(0.62 0.24 293);
+  /* Neon purple #8b5cf6 */
   --secondary-foreground: oklch(0.98 0 0);
   --muted: oklch(0.2 0 0);
   --muted-foreground: oklch(0.65 0 0);
-  --accent: oklch(0.6 0.22 264); /* Neon blue accent */
+  --accent: oklch(0.6 0.22 264);
+  /* Neon blue accent */
   --accent-foreground: oklch(0.98 0 0);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.98 0 0);
@@ -85,6 +91,7 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
