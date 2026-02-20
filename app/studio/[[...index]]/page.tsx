@@ -9,10 +9,22 @@
  * https://github.com/sanity-io/next-sanity
  */
 
-// import { NextStudio } from 'next-sanity'
-// import config from '../../../../sanity.config'
 import { NextStudio } from 'next-sanity/studio'
 import config from '../../../sanity.config'
+import * as React from 'react'
+
+if (typeof (React as any).useEffectEvent === 'undefined') {
+  ; (React as any).useEffectEvent = function useEffectEvent(callback: any) {
+    const ref = React.useRef(callback)
+    React.useInsertionEffect(() => {
+      ref.current = callback
+    })
+    return React.useCallback((...args: any[]) => {
+      const fn = ref.current
+      return fn(...args)
+    }, [])
+  }
+}
 
 export default function StudioPage() {
   return <NextStudio config={config} />
